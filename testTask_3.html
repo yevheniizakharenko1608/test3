@@ -20,8 +20,11 @@ var teens=['ten','eleven','twelve','thirteen','fourteen','fifteen','sixteen','se
 var milliard;
 
 function convert_milliard(num){
-    if (num>=1000000000){
-        return convert_millions(Math.floor(num/1000000000))+" milliard "+convert_millions(num%1000000000);
+    if (num>1000000000){
+    	return 'Your input value must be equal from 0 to 1 000 000 000. Please, check your input.';
+    }
+    else if(num == 1000000000){
+    	return convert_milliard(Math.floor(num/1000000000))+" milliard "+convert_millions(num%1000000000);
     }
     else {
         return convert_millions(num);
@@ -77,17 +80,22 @@ function main(){
 													// form: xxxxxxxxxx.xx 
 													// example: 12412.12, 1241254.67, 89321.64
     if(value.indexOf('.',0) == -1){
-		if(convert(value)) {
-			var str = convert(value) + ' dollars';
+		if(convert(value).indexOf('Your input',0)) {
+			var str = convert(value) + 'dollars';
 			console.log(str);
 		}
+		else console.log('Your input value must be equal from 0 to 1 000 000 000. Please, check your input.');
     }
     else {
     	var indexOfDot = value.indexOf('.',0);
     	var coins = convert(value.substr(indexOfDot + 1,2));
     	var dollars = convert(value.substr(0,indexOfDot));
-    	var str = (dollars + ' dollar and ' + coins + ' coins').replace('and zero coins', '');
-    	console.log(str);
+    	if(dollars.indexOf('Your input',0)) {
+			var str = (dollars + ' dollars and ' + coins + ' coins').replace('and zero coins', ''); 
+			console.log(str);
+		}
+		else console.log('Your input value must be equal from 0 to 1 000 000 000. Please, check your input.');
+												// show data and remove unnecessary/empty data
     }
     return str;
 }
